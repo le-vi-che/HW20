@@ -25,6 +25,27 @@ public class RegTests {
             .body("id", is(4),"token", is("QpwL5tke4Pnpja7X4"));
     }
 
+
+    @Test
+    void successfulCreateTest() {
+        String authData = "{\"name\": \"bond\", \"job\": \"qa\"}";
+
+        given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+
+                .when()
+                .post("https://reqres.in/api/users")
+
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(201)
+                .body("name", is("bond"),"job", is("qa"));
+    }
+
+
     @Test
     void unsuccessfullReg400Test() {
         String authData = "";
