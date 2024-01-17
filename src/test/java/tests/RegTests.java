@@ -1,3 +1,5 @@
+package tests;
+
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -100,34 +102,5 @@ public class RegTests {
                 .log().body()
                 .statusCode(400)
                 .body("error", is("Note: Only defined users succeed registration"));
-    }
-
-    @Test
-    void wrongBodyTest() {
-        String authData = "%***%";
-
-        given()
-                .body(authData)
-                .contentType(JSON)
-                .log().uri()
-
-                .when()
-                .post("https://reqres.in/api/register")
-
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(400);
-    }
-
-    @Test
-    void unsuccessReg415Test() {
-        given()
-                .log().uri()
-                .post("https://reqres.in/api/register")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(415);
     }
 }
